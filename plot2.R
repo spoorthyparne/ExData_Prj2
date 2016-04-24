@@ -1,0 +1,8 @@
+NEI <- readRDS("summarySCC_PM25.rds")
+SCC <- readRDS("Source_Classification_Code.rds")
+library(plyr)
+Baltimore_data <- subset(NEI, fips == "24510")
+totals <- ddply(Baltimore_data, c("year"), summarise, total = sum(Emissions)/10^3)
+png(filename='plot2.png')
+barplot(totals$total, names.arg = totals$year, xlab = "Year", ylab = "Totals emmissions in kilotons" , main = "Total Emissions in Baltimore city")
+dev.off()
